@@ -1,0 +1,220 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{tabu}
+\title{EE 464 \\Static Power Conversion II \\Simulation Project II}
+\author{Ozan Can İYİER, Batuhan BÜLBÜL, Metehan KARA}
+\date{March 2019}
+
+\begin{document}
+\maketitle
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.15]{logo.png}
+\label{fig:members}
+\end{figure}
+\newpage
+\section*{Introduction}
+In this simulation project, we are assigned to simulate hardware project topology. At the first part, we simulated the topology with ideal components. Then, we designed our transformer. After calculations, we added parasitic components and re-simulated the topology. For desired output characteristics, we determined related duty cycle values. At the last part of the project, we made preliminary component selection according to simulation findings .
+\section*{Part a.}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{schematic}
+\caption{The Schematic of Flyback Converter with Ideal Converters}
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_042Duty.png}
+\caption{The Output Voltage Graph for 24V Input (Duty=0.44)}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_currents.png}
+\caption{The Currents for 24V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_vmos.png}
+\caption{The Mosfet Voltage for 24V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_022Duty.png}
+\caption{Output Voltage Graph for 48V input(Duty=0.22)}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_currents.png}
+\caption{The Currents for 48V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_vmos.png}
+\caption{The Mosfet Voltage for 48V Input}
+\label{fig:members}
+\end{figure}
+
+
+
+\section*{Part b.}
+MATLAB CODE:\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{trans_code.jpg}
+\label{fig:members}
+\end{figure}
+
+
+\noindent The following calculations explains transformer design procedure;
+
+\[
+L_M=0.1mH\\
+\]
+\[
+A_L=300 nH/T^2 
+\]*Where T is number of turns.
+\[
+\frac{L_{M}}{A_L}= T^2
+\] 
+*Where T is found as 18.25.\\
+\(
+n_{secondary}=10
+\) is chosen to have 1.8 turns ratio.\\
+Total Number of Turns\(
+= 28
+\)\\
+Window Area of Selected Core\(
+= 530 mm^2
+\)\\
+Maximum Cable Size\(
+=\frac{530}{28}= 18.92 mm^2
+\)\\
+Considering the fact that current carrying capacity of AWG type wires AWG12 is chosen.\\
+Path length of selected core is 147mm.\\
+Total length of cable required for wiring is 147*28=4.11 meter. \\
+Total resistance of the wire is 21.44m\(\Omega\).\\
+For simulation leakage inductance is assumed as \% 3 of Lm.
+
+\section*{Part c.}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_022Duty.png}
+\caption{Output Voltage Graph for 48V input(Duty=0.22)}
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_currents.png}
+\caption{The Currents for 48V Input}
+\label{fig:members}
+\end{figure}
+
+
+\section*{Part d.}
+We designed our converter to work under DCM mode. For any load condition designed converter works under DCM.
+\section*{Part e.}
+
+\section*{Part f.}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_yuz.jpg}
+\caption{The Pin(=70W) and Pout(=60W) for 100\% Loading(Efficiency= 85.71\%) }
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_yetmisbes.jpg}
+\caption{The Pin(=53W) and Pout(=45W) for 75\% Loading(Efficiency= 84.91\%) }
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_elli.jpg}
+\caption{The Pin(=36W) and Pout(=30W) for 50\% Loading(Efficiency= 83.33\%) }
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_yirmi.jpg}
+\caption{The Pin(=19W) and Pout(=15W) for 25\% Loading(Efficiency= 78.95\%) }
+\label{fig:members}
+\end{figure}
+
+
+
+
+
+\section*{Part g.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in24out10.jpg}
+\caption{The Input-Output Voltage Graph for 24V input }
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in24out10_ripple.jpg}
+\caption{The Output Voltage Ripple(=184mV) When Vin=24V}
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in48out10.jpg}
+\caption{The Input-Output Voltage Graph for 48V input }
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in48out10_ripple.jpg}
+\caption{The Output Voltage Ripple(=182mV) When Vin=48V}
+\label{fig:members}
+\end{figure}
+
+\newpage
+\section*{Part h.}
+
+\begin{center}
+Table 1: Component List
+\end{center}
+\begin{center}
+\begin{tabular}{ | m{6em} | m{1.5cm} | m{7cm} | } 
+\hline
+\textbf{Component}&\textbf{ Value } &\textbf{ Brand } \\ 
+\hline
+Inductor 1 & 4.7 mH & sd\\ 
+\hline
+Inductor 2 & 4.7 mH & sd\\ 
+\hline
+Capacitor 1 & $100 \mu$F & sd\\ 
+\hline
+Capacitor 2 & 1 mF & sd\\ 
+\hline
+Load & $4\Omega$ & sd \\ 
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Conclusion}
+This project was a preliminary for hardware project. At first part of the project, we worked with ideal components. Hence, although the output values are at desired levels. The parasitic elements are affected the output values inevitably. For realistic case, we calculated transformer parameters, snubbers and other components' values. At the last part of the project, we selected possible components according to simulation results. Although these components fit for simulations, there can be some unexpected situations at real life implementations. This project was a good exerxice for next stages of hardware project.
+\end{document}
