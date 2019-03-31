@@ -1,0 +1,325 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\title{EE 464 \\Static Power Conversion II \\Simulation Project II\\Flyback Converter\#3}
+\author{Ozan Can İYİER, Batuhan BÜLBÜL, Metehan KARA}
+\date{March 2019}
+
+\begin{document}
+\maketitle
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.15]{bomibom.jpg}
+\label{fig:members}
+\end{figure}
+\newpage
+\section*{Introduction}
+In this simulation project, we are assigned to simulate hardware project topology which is Flyback converter with following specifications.
+\begin{itemize}
+    \item Minimum input Voltage: 24V
+    \item Maximum input Voltage: 48V
+    \item Output Voltage: 12V
+    \item Output Power: 60V
+    \item Output Ripple: \%4
+\end{itemize}
+At the first part, we simulated the topology with ideal components. Then, we designed our transformer. After calculations, we added parasitic components and re-simulated the topology. For desired output characteristics, we determined related duty cycle values. At the last part of the project, we made preliminary component selection according to simulation findings .
+\section*{Part a.}
+For the first part of the project, we have simulated our system without any modification and obtained steady state response of our system.The schematic of our system can be seen from figure 1. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{schematic}
+\caption{The Schematic of Flyback Converter with Ideal Components}
+\label{fig:members}
+\end{figure}
+
+For maximum and minimum input voltages, we determined the duty cycles as 0.44 for 24 V and 0.22 for 48V Case. According to these values, we obtained \(V_{Out}\), currents and mosfet voltages for both cases. From simulation results which are indicated figure 2,3,4,5,6 and 7 we can observe that the output ripple values is convenient for \%4 limitation. Current graphs shows us that our system is in the border of DCM. Although this graph observations are convenient for our system, the parasitic elements will be very crucial for the design. These effects will be discussed in the next parts of the reports.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_042Duty.png}
+\caption{The Output Voltage Graph for 24V Input (Duty=0.44)}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_currents.png}
+\caption{The Currents for 24V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_vmos.png}
+\caption{The Mosfet Voltage for 24V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_022Duty.png}
+\caption{Output Voltage Graph for 48V input(Duty=0.22)}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_currents.png}
+\caption{The Currents for 48V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_vmos.png}
+\caption{The Mosfet Voltage for 48V Input}
+\label{fig:members}
+\end{figure}
+
+
+
+\section*{Part b.}
+For transformer design, we created a MATLAB code to facilitate our work. The code calculates \(I_{primary},L_m \)and turns ratio of the transformer. While creating this code Würth Cook Book Transformer Design Guideline is used. The MATLAB code and outputs can be seen from following figures.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.9]{trans_code.jpg}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{workspace.jpg}
+\caption{Code Results}
+\label{fig:members}
+\end{figure}
+
+\noindent After obtaining the \(I_{primary},L_m \)and turns ratio values we made some calculation in order to finalize procedure. The following calculations explains transformer design procedure;
+
+\[
+L_M=0.1mH\\
+\]
+\[
+A_L=300 nH/T^2 
+\]*Where T is number of turns.
+\[
+\frac{L_{M}}{A_L}= T^2
+\] 
+*Where T is found as 18.25.\\
+\(
+n_{secondary}=10
+\) is chosen to have 1.8 turns ratio.\\
+Total Number of Turns\(
+= 28
+\)\\
+Window Area of Selected Core\(
+= 530 mm^2
+\)\\
+Maximum Cable Size\(
+=\frac{530}{28}= 18.92 mm^2
+\)\\
+Considering the fact that current carrying capacity of AWG type wires AWG12 is chosen.\\
+Path length of selected core is 147mm.\\
+Total length of cable required for wiring is 147*28=4.11 meter. \\
+Total resistance of the wire is 21.44m\(\Omega\).\\
+For simulation leakage inductance is assumed as \% 3 of Lm.
+
+\section*{Part c.}
+As explained in Part A, we tried to idealize our components as much as possible. In addition to that we made our snubbers too big to carry current and made our swtiches as ideal as possible. The some of calculations of this part is explained previous part. The simulation results are indicated at following figures.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_022Duty.png}
+\caption{Output Voltage Graph for 48V input(Duty=0.22)}
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_currents.png}
+\caption{The Currents for 48V Input}
+\label{fig:members}
+\end{figure}
+
+
+\section*{Part d.}
+We designed our converter to work under DCM mode which is a possible result of using Würth Cook Book. The following two figures are supporting this idea. Hence, for any load condition designed converter works under DCM.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in24_currents.png}
+\caption{The Currents for 24V Input}
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{ideal_in48_currents.png}
+\caption{The Currents for 24V Input}
+\label{fig:members}
+\end{figure}
+\section*{Part e.}
+
+In this part, we investigated effects of parasitic components in diode and mosfet. The internal resistance and reactance leads some losses. Hence system efficiency decreases because of voltage drop on this components. 
+
+In this part, the effect of parasitic components inside the switches are observed. The resistances (i.e. snubber and FET resistances) cause a power loss to the system. Moreover, they cause a voltage drop across the switches. In addition to that, the default voltage drop across the switches has the same effect, too. 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{diodevoltageandcurrent.jpg}
+\caption{Diode Mosfet and Current}
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{mosfetvoltageandcurrent.jpg}
+\caption{Mosfet Voltage and Current }
+\label{fig:members}
+\end{figure}
+
+\section*{Part f.}
+In this part, we simulated our topology under different load conditions. For each case we obtained input, output powers. The input, output power and efficiency values which are obtained from simulation blocks are indicated at captions of the figures for each case.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_yuz.jpg}
+\caption{The Pin(=70W) and Pout(=60W) for 100\% Loading(Efficiency= 85.71\%) }
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_yetmisbes.jpg}
+\caption{The Pin(=53W) and Pout(=45W) for 75\% Loading(Efficiency= 84.91\%) }
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_elli.jpg}
+\caption{The Pin(=36W) and Pout(=30W) for 50\% Loading(Efficiency= 83.33\%) }
+\label{fig:members}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{pin_pout_yirmi.jpg}
+\caption{The Pin(=19W) and Pout(=15W) for 25\% Loading(Efficiency= 78.95\%) }
+\label{fig:members}
+\end{figure}
+
+
+
+
+\newpage
+\section*{Part g.}
+For 24 Volts and 48 Volts inputs we simulated our topology and obtained the following figures which shows our system works properly for each case. If we face a ripple problem during real life testing part, we can handle this problem by using a larger capacitor at output. Hence we can set the ripple as desired values.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in24out10.jpg}
+\caption{The Input-Output Voltage Graph for 24V input }
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in24out10_ripple.jpg}
+\caption{The Output Voltage Ripple(=184mV) When Vin=24V}
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in48out10.jpg}
+\caption{The Input-Output Voltage Graph for 48V input }
+\label{fig:members}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.21]{nonideal_in48out10_ripple.jpg}
+\caption{The Output Voltage Ripple(=182mV) When Vin=48V}
+\label{fig:members}
+\end{figure}
+
+\newpage
+\section*{Part h.}
+\subsection*{Mosfet Selection}
+In order to select proper mosfet we looked at drain to source voltage rating and continuous current ratings. As  seen Figure 7 at 48 volt imput mosfet voltage has 67 V peak value. Continuous current rating of mosfet is 13 A. From this calculations selected mosfet ratings are shown in Table 1.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{mosfet.PNG}
+\label{fig:members}
+\end{figure}
+
+\subsection*{Diode Selection}
+For the diode selection important parameters are peak inverse voltage and current capability.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{diodeselection.png}
+\caption{Diode voltage and current ratings}
+\label{fig:members}
+\end{figure}
+
+
+
+From Figure 23. We found peak inverse voltage as 40 V and continuous current as 22 A. Using these parameters  a diode is selected and it’s parameters shown in table 2.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{diode.PNG}
+\label{fig:members}
+\end{figure}
+
+\subsection*{Filter Capacitor Selection}
+At the outpu capacitor wer calculated that we need 3 680 uF capacitor. It is also known that our output voltage rating is 10 V. After finding these parameters we selected our capacitor whose parameters is seen at Table 3.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{filtercap.PNG}
+\label{fig:members}
+\end{figure}
+
+
+\subsection*{Snubber Elements}
+\subsubsection*{Snubber Capacitor selection}
+In the simulation we found capacitor voltage and current ratings which are indicated in Figure 24.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.17]{snubberselect.png}
+\caption{Snubber capacitor voltage and current ratings}
+\label{fig:members}
+\end{figure}
+
+
+
+
+After determining these values an aluminum electrolytic capacitor is selected as seen in table 4.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{snubcap.PNG}
+\label{fig:members}
+\end{figure}
+
+\subsubsection*{Snubber Diode}
+Similar to snubber capacitor selection by looking at its voltage and current rating a diode is selected. Simulation results are shown in Figure 25.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.15]{snubberdiode.png}
+\caption{Snubber diode voltage and current ratings}
+\label{fig:members}
+\end{figure}
+
+
+
+Selected diode and its parameters indicated in Table 5.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{snubdiode.PNG}
+\label{fig:members}
+\end{figure}
+
+
+\section*{Conclusion}
+This project was a preliminary for hardware project. At first part of the project, we worked with ideal components. Hence, although the output values are at desired levels. The parasitic elements are affected the output values inevitably. For realistic case, we calculated transformer parameters, snubbers and other components' values. At the last part of the project, we selected possible components according to simulation results. Although these components fit for simulations, there can be some unexpected situations at real life implementations. This project was a good exerxice for next stages of hardware project.
+\end{document}
